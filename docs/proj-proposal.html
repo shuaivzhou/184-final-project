@@ -18,6 +18,66 @@
 <h1 align="middle">Final Project: Physics Simulation of Realistic Gaseous Phenomena</h1>
 <h2 align="middle">Project Proposal</h2>
 
+<body>
+    In this project, we will attempt to implement a mathematical implementation of a physics simulation using Diffusion Processes to simulate fire and other gaseous phenomena. For example, this would allow us to simulate the distortions of gasses when affected by wind, fire, and the spread of fire.
+</body>
+
+<h3>Problem Description</h3>
+<body>
+    Depicting fire and other gaseous phenomena has a variety of applications; however, most forms of modeling fire can be very computationally expensive with a lot of variables in close relation to each other and do not leave much control for the user. Furthermore, the models are rendered with particles used to take on the form of the fire, creating a non-realistic imitation that fails to fully capture the actual dynamics of fire. In order to model the gaseous phenomena and fire, we use diffusion processes to model the movement of blobs of gas. This model provides more flexibility for user control of the gas and fire. Furthermore, the model allows us to visually render more realistic gaseous phenomena and fire, while being computationally more efficient.
+</body>
+
+<h3>Goals and Deliverables</h3>
+<ul>
+    <li>
+        <h4>Baseline Plan</h4>
+        <body>
+            <ul>
+                <li>Implement the GUI in C++.</li>
+                <li>Create the initial modeling of fire using warped blobs, allowing us to more accurately model the motion of gasses whilst undergoing various changes with exposure to different effects.</li>
+                <li>Implement the diffusion equations in the depiction of the development of density, temperature, and diffuse intensity of gasses.</li>
+                <li>Implement the mathematics for our simple fire model in order to depict the concentration of flames, smoke, and fuel. </li>
+            </ul>
+        </body>
+    </li>
+    <li>
+        <h4>Aspirational Plan</h4>
+        <body>
+            <ul>
+                <li>If we have time, we’d like to try to model the automatic destruction of objects while burning. We believe this would be significantly more difficult, given that we would  have to model each material’s burning rate and if it explodes or not. We would also have to consider if they just burn to ash or turn into a liquid after the temperature reaches the boiling point.</li>
+                <li>Another stretch goal would include creating a slider for the turbulent winds to allow the users to control the strength of the wind. Users could change the parameters of wind velocity and then watch the animation of the fire.</li>
+            </ul>
+        </body>
+    </li>
+</ul>
+
+<h3>Schedule</h3>
+<ul>
+    <li>4/3 ~ 4/4: Project Proposal</li>
+    <li>4/4: Proposal Due</li>
+    <li>4/4 ~ 4/6: Proposal Revising</li>
+    <li>4/6 ~ 4/8: Setup + Starter Code</li>
+    <li>4/8 ~ 4/11: Density and Temperature Implementation</li>
+    <li>4/11 ~ 4/19: Single Scattering + Diffuse Intensity Implementation</li>
+    <li>4/17 ~ 4/19: Transparency of Fire Implementation</li>
+    <li>4/19 ~ 4/22: Simple Fire Model Implementation</li>
+    <li>4/23 ~ 4/25: Project Milestone Deliverables</li>
+    <li>4/25: Project Milestone Due</li>
+    <li>4/25 ~ 5/3: Integration and Experiments</li>
+    <li>5/3 ~ 5/4: Final Presentation</li>
+    <li>5/4: Final Deliverables Due</li>
+</ul>
+
+<h3>Resources</h3>
+<body>
+    We will be referencing <a href="https://dl.acm.org/doi/pdf/10.1145/218380.218430"><i>Depicting Fire and Other Gaseous Phenomena Using Diffusion Process</i></a>.
+</body>
+
+<h3>Questions</h3>
+<ul>
+    <li>We were wondering if there were any suggestions for a good GUI and general help to set up our overall startup code. </li>
+</ul>
+
 
 </body>
 </html>
