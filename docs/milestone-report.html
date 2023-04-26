@@ -18,6 +18,45 @@
 <h1 align="middle">Final Project: Physics Simulation of Realistic Gaseous Phenomena</h1>
 <h2 align="middle">Milestone Report</h2>
 
+<div class="padded">
+
+
+  <ul>
+    <li><a href="index.html" target="_blank" rel="noopener noreferrer">Home</a></li>
+    <li><a href="proj-proposal.html" target="_blank" rel="noopener noreferrer">Project Proposal</a></li>
+    <li><a href="milestone-report.html" target="_blank" rel="noopener noreferrer">Milestone Report</a></li>
+    <li><a href="final-report.html" target="_blank" rel="noopener noreferrer">Final Report</a></li>
+  </ul>
+
+  <h3>Updated Goal</h3>
+  <body>
+    In this project, we are now attempting to simulate smoke in 2D through implementing a general 2D Eulerian fluid simulator. We are modeling the physics behind making the fluid incompressible, Pressure, Semi-Lagrangian Advection, Vorticity, and Buoyancy. We are simulating this smoke in 2D in the context of creating similar smoke effects to those seen in video games. Specifically, we are trying to mimic smoke effects that are seen in video games such as Counter Strike 2 and Call of Duty. Some of these simulations include creating a smoke grenade and smoke interactions with explosives and bullets. Furthermore, we are also trying to simulate other game effects that relate heat, smoke, and other objects. We hope to create the simulation of burning objects through our included heat and simulation of fire.
+  </body>
+
+  <h3>Progress</h3>
+  <body>
+    We currently have a base Eulerian fluid simulator working but we are in the progress of implementing vorticity to create a more natural looking smoke. The effects of the vorticity can currently be seen with an adjustable vorticity constant that changes the degree of swirling, which we plan on making adjustable later with a slider. The vorticity creates a more ‘wavy’ smoke that bends and folds on itself more, and our code effectively looks for where the smoke creates vortices around a single axis and increases the smoke’s velocities to prevent stabilized vortices. We are also in the process of implementing heat and density in order to also implement buoyancy into our smoke simulator and other effects related to heat. We have researched the various equations we need to use for the relation between the pressure, heat, and density and are in the process of implementing it all together. For the side of implementing various smoke effects in video games, we have implemented an early implementation of the interaction between the smoke and an explosion. However, certain specific interactions are buggy and the smoke grenade is still very early in progress.
+  </body>
+
+  <h3>Preliminary Results</h3>
+  <body>
+    <a href="https://docs.google.com/presentation/d/1FHM83V-MO1W4wuKELEyIIQHRrgGS0yQk98_9LB8lhiw/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Slides of progress</a>
+  </body>
+
+  <h3>Reflection on Progress Relative to Plan</h3>
+  <body>
+    We initially explored doing a mathematical implementation of a physics simulation using Diffusion Processes to simulate fire and other gaseous phenomena using the project 4 code as a base. However, we found this to be extremely difficult in terms of figuring out the project 4 implementation and how to implement our near classes. Furthermore, we found a lot of the equations in the paper to be very difficult to implement as we were not completely familiar with how to implement certain equations. We then pivoted to implementing a 2D Eulerian smoke simulation in Javascript instead. This has allowed us much more freedom to explore various effects and the ability to creatively simulate certain video games effects. We have also since restructured our plan to reflect our new goals.
+  </body>
+
+  <h3>Work Plan</h3>
+    <ul>
+        <li>4/26: Finish Vorticity Implementation (added slider) and get a generally working explosion</li>
+        <li>4/28: Get general heat interactions set up and smoke grenade working</li>
+        <li>4/29: Update the GUI to include varying constants</li>
+        <li>4/30: Implement the burning of different objects and bullets</li>
+        <li>5/1 ~ 5/2: Wrap up the project together and create deliverables</li>
+    </ul>
+
 
 </body>
 </html>
