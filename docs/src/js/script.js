@@ -445,7 +445,7 @@ class Fluid {
         var dx = 0.0;
         var dy = 0.0;
         var len = 0.0;
-        var vorticity = 1.3;
+        var vorticity = 2.0;
         
         var abs_grad = [0, 0];
         var my_norm = 0;
@@ -510,16 +510,31 @@ class Fluid {
                         // this.v[my_x * n + my_y + 1] += sy1 * p;
                     }
                 }
-                curr_mass = (sx0 * p + sy0 * p);
+                curr_mass = 0;
+                if (sx0 * p > 0) {
+                    curr_mass += sx0 * p;
+                } else {
+                    curr_mass += sx1 * p;
+                }
+                if (sy0 * p > 0) {
+                    curr_mass += sy0 * p;
+                } else {
+                    curr_mass += sy1 * p;
+                }
+                // curr_mass = (sx0 * p + sy0 * p);
                 // if (curr_mass != 0) {
                 // 	console.log(curr_mass);
                 // }
                 if (!isNaN(curr_mass) && curr_mass > epsilon && curr_mass < gamma && this.force[my_x * n + my_y][0] < gamma && this.force[my_x * n + my_y][1] < gamma) {
                     // console.log("force" + this.force[my_x * n + my_y][0].toString());
                     // console.log(f.m[my_x * n + my_y]);
-                    this.newU[my_x * n + my_y] = this.u[my_x * n + my_y] + vorticity * dt * this.force[my_x * n + my_y][0] / curr_mass;
+                    if (this.u[my_x * n + my_y] > 0 && this.force[my_x * n + my_y][0] > 0 || this.u[my_x * n + my_y] < 0 && this.force[my_x * n + my_y][0] < 0) {
+                        this.newU[my_x * n + my_y] = this.u[my_x * n + my_y] + vorticity * dt * this.force[my_x * n + my_y][0] / curr_mass;
+                    }
                     // console.log(f.m[my_x * n + my_y]);
-                    this.newV[my_x * n + my_y] = this.v[my_x * n + my_y] + vorticity * dt * this.force[my_x * n + my_y][1] / curr_mass;
+                    if (this.v[my_x * n + my_y] > 0 && this.force[my_x * n + my_y][1] > 0 || this.v[my_x * n + my_y] < 0 && this.force[my_x * n + my_y][1] < 0) {
+                        this.newV[my_x * n + my_y] = this.v[my_x * n + my_y] + vorticity * dt * this.force[my_x * n + my_y][1] / curr_mass;
+                    }
                 }
             }
         }
