@@ -1,0 +1,127 @@
+<!--
+Copyright 2022 Matthias Müller - Ten Minute Physics, 
+www.youtube.com/c/TenMinutePhysics
+www.matthiasMueller.info/tenMinutePhysics
+MIT License
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Euler Fluid</title>
+	<style>
+		body {
+			font-family: verdana;
+			font-size: 15px;
+		}
+
+		.button {
+			background-color: #606060;
+			border: none;
+			color: white;
+			padding: 10px 10px;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+
+		.slider {
+			-webkit-appearance: none;
+			width: 80px;
+			height: 6px;
+			border-radius: 5px;
+			background: #d3d3d3;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+		}
+
+		.dropbtn {
+			background-color: #3498DB;
+			color: white;
+			padding: 16px;
+			font-size: 16px;
+			border: none;
+			cursor: pointer;
+		}
+
+			.dropbtn:hover, .dropbtn:focus {
+				background-color: #2980B9;
+			}
+
+		.dropdown {
+			/* position: relative; */
+			display: inline-block;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #f1f1f1;
+			min-width: 160px;
+			overflow: auto;
+			padding: 0px 20px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+		}
+
+			.dropdown-content a {
+				color: black;
+				padding: 12px 16px;
+				text-decoration: none;
+				display: block;
+			}
+
+		.dropdown a:hover {
+			background-color: #ddd;
+		}
+
+		.show {
+			display: block;
+		}
+	</style>
+</head>
+	
+<body>
+
+	<button class="button" onclick="setupScene(1)">Wind Tunnel</button>
+	<button class="button" onclick="setupScene(2)">Paint</button>
+	<button class="button" onclick="setupScene(4)">None</button>
+	<input type="checkbox" name="field" id="tempButton" onclick="scene.showTemp = !scene.showTemp;">Heat
+	<input type="checkbox" name="field" id="smokeButton" onclick="scene.showSmoke = !scene.showSmoke;" checked>Smoke
+	<input type="checkbox" id="overrelaxButton" onclick="scene.overRelaxation = scene.overRelaxation == 1.0 ? 1.9 : 1.0" checked>Overrelax
+	<div class="dropdown">
+		<button onclick="myFunction()" class="dropbtn">Scene Objects</button>
+		<div id="myDropdown" class="dropdown-content">
+			<ul style="list-style: none;">
+				<li><input type="radio" id="ballButton" onclick="scene.ball = !scene.ball; if (scene.flarerenade) {scene.flaregrenade = false}; if (scene.smokegrenade) {scene.smokegrenade = false}; document.getElementById('flaregrenadeButton').checked = false; document.getElementById('smokegrenadeButton').checked = false" ; checked>Ball</li>
+				<li><input type="radio" id="flaregrenadeButton" onclick="scene.flaregrenade = !scene.flaregrenade; if (scene.ball) {scene.ball = false}; if (scene.smokegrenade) {scene.smokegrenade = false}; document.getElementById('ballButton').checked = false; document.getElementById('smokegrenadeButton').checked = false" ; checked>Flare Grenade</li>
+				<li><input type="radio" id="smokegrenadeButton" onclick="scene.smokegrenade = !scene.smokegrenade; if (scene.ball) {scene.ball = false}; if (scene.flaregrenade) {scene.flaregrenade = false}; document.getElementById('ballButton').checked = false; document.getElementById('flaregrenadeButton').checked = false" ; checked>Smoke Grenade</li>
+			</ul>
+		</div>
+	</div>
+	<div class="dropdown">
+		<button onclick="myFunction2()" class="dropbtn">Appearances</button>
+		<div id="myDropdown2" class="dropdown-content">
+			<ul style="list-style: none;">
+				<li><input type="radio" id="smokeAppOne" onclick="scene.smokeAppOne = !scene.smokeAppOne; if (scene.blocky) {scene.blocky = false}; document.getElementById('blocky').checked = false; if (scene.color) {scene.color = false}; document.getElementById('color').checked = false; if (scene.smokeAppTwo) {scene.smokeAppTwo = false}; if (scene.smokeAppThree) {scene.smokeAppThree = false}; if (scene.fire) {scene.fire = false}; document.getElementById('fire').checked = false; document.getElementById('smokeAppTwo').checked = false; document.getElementById('smokeAppThree').checked = false" ; checked>Normal Smoke</li>
+				<li><input type="radio" id="smokeAppTwo" onclick="scene.smokeAppTwo = !scene.smokeAppTwo; if (scene.smokeAppOne) {scene.smokeAppOne = false}; if (scene.blocky) {scene.blocky = false}; document.getElementById('blocky').checked = false; if (scene.color) {scene.color = false}; document.getElementById('color').checked = false; if (scene.smokeAppThree) {scene.smokeAppThree = false}; if (scene.fire) {scene.fire = false}; document.getElementById('fire').checked = false; document.getElementById('smokeAppOne').checked = false; document.getElementById('smokeAppThree').checked = false" ; checked>Phong Shading Smoke</li>
+				<li><input type="radio" id="smokeAppThree" onclick="scene.smokeAppThree = !scene.smokeAppThree; if (scene.smokeAppOne) {scene.smokeAppOne = false}; if (scene.smokeAppTwo) {scene.smokeAppTwo = false}; if (scene.fire) {scene.fire = false}; document.getElementById('fire').checked = false; document.getElementById('smokeAppOne').checked = false; if (scene.blocky) {scene.blocky = false}; document.getElementById('blocky').checked = false; if (scene.color) {scene.color = false}; document.getElementById('color').checked = false; document.getElementById('smokeAppTwo').checked = false" ; checked>Van Gogh Smoke</li>
+
+				<li><input type="radio" id="blocky" onclick="scene.blocky = !scene.blocky; if (scene.color) {scene.color = false}; document.getElementById('color').checked = false; if (scene.smokeAppOne) {scene.smokeAppOne = false}; if (scene.smokeAppTwo) {scene.smokeAppTwo = false}; if (scene.smokeAppThree) {scene.smokeAppThree = false}; if (scene.fire) {scene.fire = false}; document.getElementById('fire').checked = false; document.getElementById('smokeAppOne').checked = false; document.getElementById('smokeAppTwo').checked = false; document.getElementById('smokeAppThree').checked = false" ; checked>Blocky</li>
+				<li><input type="radio" id="color" onclick="scene.color = !scene.color; if (scene.blocky) {scene.blocky = false}; document.getElementById('blocky').checked = false; if (scene.smokeAppOne) {scene.smokeAppOne = false}; if (scene.smokeAppTwo) {scene.smokeAppTwo = false}; if (scene.smokeAppThree) {scene.smokeAppThree = false}; if (scene.fire) {scene.fire = false}; document.getElementById('fire').checked = false; document.getElementById('smokeAppOne').checked = false; document.getElementById('smokeAppTwo').checked = false; document.getElementById('smokeAppThree').checked = false" ; checked>Color</li>
+
+				<li><input type="radio" id="fire" onclick="scene.fire = !scene.fire; if (scene.blocky) {scene.blocky = false}; document.getElementById('blocky').checked = false; if (scene.color) {scene.color = false}; document.getElementById('color').checked = false; if (scene.smokeAppOne) {scene.smokeAppOne = false}; if (scene.smokeAppTwo) {scene.smokeAppTwo = false}; if (scene.smokeAppThree) {scene.smokeAppThree = false}; document.getElementById('smokeAppOne').checked = false; document.getElementById('smokeAppTwo').checked = false; document.getElementById('smokeAppThree').checked = false" ; checked>Fire Heat</li>
+			</ul>
+		</div>
+	</div>
+	<br>
+	<canvas id="myCanvas" style="border:2px solid"></canvas>
+	<script src="./js/script.js"></script>
+</body>
+</html>
