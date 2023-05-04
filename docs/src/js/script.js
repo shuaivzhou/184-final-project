@@ -445,7 +445,7 @@ class Fluid {
         var dx = 0.0;
         var dy = 0.0;
         var len = 0.0;
-        var vorticity = 2.0;
+        var vorticity = 1.3;
         
         var abs_grad = [0, 0];
         var my_norm = 0;
